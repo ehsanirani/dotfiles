@@ -5,19 +5,26 @@
 ;; these used in macros.
 
 ;; Set log level to `info' rather than `error'
-;(setq minemacs-msg-level 2)
+(unless minemacs-verbose
+  (setq minemacs-msg-level 2))
+
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+;(setq package-enable-at-startup t)
+
+;; Disable `dashboard'
+;; (setq +dashboard-disable t)
+
+;; Enable full screen at startup
+;; (if-let ((fullscreen (assq 'fullscreen default-frame-alist)))
+;;     (setcdr fullscreen 'fullboth)
+;;   (push '(fullscreen . fullboth) default-frame-alist))
 
 ;; Force loading lazy packages immediately, not in idle time
 ;; (setq minemacs-not-lazy t)
 
-;; Set a theme for MinEmacs early (when loading the `me-core-ui' module),
-;; supported themes include these from `doom-themes' and `modus-themes'.
-(setq minemacs-theme 'doom-vibrant)
-
 ;; Setup a `debug-on-message' to catch a wired message!
 ;; (setq debug-on-message "Package cl is deprecated")
 
-(require 'package)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-
-(setq package-enable-at-startup t)
+;; Compute statistics to use with `use-package-report'
+;; (setq use-package-compute-statistics t)

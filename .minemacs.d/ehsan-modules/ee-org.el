@@ -11,7 +11,7 @@
   (add-hook 'org-mode-hook #'org-modern-indent-mode 90))
 
 (use-package org-modern
-  :ensure t
+  :straight t
   :custom
   (org-modern-hide-stars nil)                                                                                                                                                   ; adds extra indentation
   (org-modern-table nil)
@@ -27,6 +27,7 @@
 (setq org-startup-indented t)
 
 (use-package org-transclution)
+;  :straight t)
 (define-key global-map (kbd "<f12>") #'org-transclusion-add)
 (define-key global-map (kbd "<C-n t>") #'org-transclusion-mode)
 

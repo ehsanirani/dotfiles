@@ -2,11 +2,11 @@
 
 
 (use-package eglot-jl
-  :ensure t)
+  :straight t)
 
 
 (use-package julia-mode
-  :ensure t
+  :straight t
   :mode "\\.jl$"
   :interpreter ("julia +1.9" . julia-mode)
   :init (setenv "JULIA_NUM_THREADS" "4")
@@ -18,7 +18,7 @@
   (add-hook 'julia-mode-hook (lambda () (setq julia-repl-set-terminal-backend 'vterm))))
 
 ;; (use-package julia-ts-mode
-;;   :ensure t
+;;   :straight t
 ;;   :mode "\\.jl$"
 ;;  :interpreter ("julia +1.9" . julia-mode)
 ;;  :init (setenv "JULIA_NUM_THREADS" "4")
@@ -37,7 +37,7 @@
 
 
 (use-package julia-repl
-  :ensure t
+  :straight t
   :interpreter ("julia +1.9" . julia-mode)
   :hook (julia-mode . julia-repl-mode)
 
@@ -52,10 +52,14 @@
   (define-key julia-repl-mode-map (kbd "<C-RET>") 'my/julia-repl-send-cell)
   (define-key julia-repl-mode-map (kbd "<M-RET>") 'julia-repl-send-line)
   (define-key julia-repl-mode-map (kbd "<S-return>") 'julia-repl-send-buffer))
+
 ;; python
 
+(use-package blacken
+  :straight t)
+
 (use-package poetry
-  :ensure t
+  :straight t
   :defer t
   :config
   ;; Checks for the correct virtualenv. Better strategy IMO because the default
@@ -65,7 +69,7 @@
 
 ;; Fix path
 (use-package exec-path-from-shell
-  :ensure t
+  :straight t
   :config
   (when (memq window-system '(mac ns x))
     (exec-path-from-shell-initialize)))
@@ -103,7 +107,7 @@
 
 ;(unless (package-installed-p 'cider)
 ;  (package-install 'cider))
-(use-package cider
-  :ensure t)
+;K(use-package cider
+;  :straight t)
 
 (provide 'ee-prog)

@@ -55,7 +55,7 @@
 
 ;; Dashboard
 ; (use-package dashboard
-;   :ensure t
+;   :straight t
 ;   :config
 ;   (dashboard-setup-startup-hook)
 ;  (setq dashboard-center-content t))
