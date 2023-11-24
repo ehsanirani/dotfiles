@@ -1,3 +1,4 @@
+source "$HOME/.profile"
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -73,13 +74,14 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
+
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting tmux poetry fzf-zsh-plugin fzf-tab)
-ZSH_TMUX_AUTOSTART=true
+#ZSH_TMUX_AUTOSTART=true
 ZSH_TMUX_AUTOCONNECT=false
 #ZSH_TMUX_AUTOQUIT=false
 
@@ -87,7 +89,6 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH="$HOME/bin:$PATH"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -115,24 +116,24 @@ eval `dircolors /home/ehsan/.dir_colors/dircolors`
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-export PATH=/usr/local/go/bin:~/.local/bin:$PATH
 
 # >>> juliaup initialize >>>
 
 # !! Contents within this block are managed by juliaup !!
 
-path=('/home/ehsan/.julia/juliaup/bin' $path)
-export PATH
+#path=('/home/ehsan/.julia/juliaup/bin' $path)
+#export PATH
+
+# pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
 
 # <<< juliaup initialize <<<
 
 # zoxide
 eval "$(zoxide init zsh)"
 
-# pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
 
 #eval "$(starship init zsh)"
 

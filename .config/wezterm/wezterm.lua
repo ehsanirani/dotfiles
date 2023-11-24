@@ -24,6 +24,7 @@ end
 --config.color_scheme = 'Google Dark (Gogh)'
 --config.color_scheme = 'Dracula'
 --config.color_scheme = 'Goey (Gogh)'
+config.color_scheme = 'carbonfox'
 
 
 

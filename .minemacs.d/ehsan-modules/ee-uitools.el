@@ -1,4 +1,5 @@
 (use-package ligature
+  :straight t
   :config
   ;; Enable the "www" ligature in every possible major mode
   (ligature-set-ligatures 't '("www"))
@@ -23,27 +24,31 @@
   ;; per mode with `ligature-mode'.
   (global-ligature-mode t))
 
-(use-package ligature
-  ;:load-path "path-to-ligature-repo"
-  :config
+;; (use-package ligature
+;;   :straight t
+;;   ;:load-path "path-to-ligature-repo"
+;;   :config
 
-  ;; JuliaMono (https://juliamono.netlify.app/) supports the following small set of ligatures
-  (let ((ligs '("->" "=>" "|>" "<|" "::" "<--" "-->" "<-->")))
-    (ligature-set-ligatures 'prog-mode ligs)
-    (ligature-set-ligatures 'org-mode ligs))
+;;   ;; JuliaMono (https://juliamono.netlify.app/) supports the following small set of ligatures
+;;   (let ((ligs '("->" "=>" "|>" "<|" "::" "<--" "-->" "<-->")))
+;;     (ligature-set-ligatures 'prog-mode ligs)
+;;     (ligature-set-ligatures 'org-mode ligs))
 
-  ;; Enables ligature checks globally in all buffers. You can also do it
-  ;; per mode with `ligature-mode'.
-  (global-ligature-mode t))
+;;   ;; Enables ligature checks globally in all buffers. You can also do it
+;;   ;; per mode with `ligature-mode'.
+;;   (global-ligature-mode t))
 
 
 (use-package vterm
+  :straight t
   :commands vterm
   :config
   ;;(setq vterm-shell "zsh")                       ;; Set this to customize the shell to launch
   (setq vterm-max-scrollback 10000))
 
-(use-package vterm-toggle)
+(use-package vterm-toggle
+  :straight t)
+
 
 (global-set-key [f2] 'vterm-toggle)
 (global-set-key [C-f2] 'vterm-toggle-cd)

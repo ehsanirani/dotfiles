@@ -19,6 +19,7 @@ config.color_scheme = 'Epiphany (terminal.sexy)'
 --config.color_scheme = 'Gogh (Gogh)'
 --config.color_scheme = 'Google Dark (Gogh)'
 --config.color_scheme = 'Chester'
+--config.color_scheme = 'Dracula'
 config.color_scheme = 'Dracula'
 
 config.hide_tab_bar_if_only_one_tab = true

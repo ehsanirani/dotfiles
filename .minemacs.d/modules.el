@@ -58,7 +58,8 @@
 (setq minemacs-modules
       (append
        minemacs-modules
-       '(ehsan-modules/ee-prog
+       '(ehsan-modules/ee-uitools
+         ehsan-modules/ee-prog
          ehsan-modules/ee-org)))
 ;;; List of disabled packages
 ;; You can set `minemacs-disabled-packages' to disable some packages. For
