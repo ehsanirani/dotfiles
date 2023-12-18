@@ -82,10 +82,10 @@
 ;; You can use the obsolete packages configurations by adding the
 ;; `obsolete/me-*' modules to `minemacs-modules'. However, these modules, as
 ;; their names indicate, are OBSOLETE and NOT SUPPORTED.
-;; (setq minemacs-modules
-;;       (append
-;;        minemacs-modules
-;;        '(obsolete/me-cov           ; Show code coverage results (cov, ...)
+(setq minemacs-modules
+     (append
+        minemacs-modules
+        '(obsolete/me-blamer)))           ; Show code coverage results (cov, ...)
 ;;          obsolete/me-eaf           ; EAF apps (browser, jupyter, file-sender, ...)
 ;;          obsolete/me-flycheck      ; Static checkers (flycheck, ...)
 ;;          obsolete/me-org-roam      ; Org roam configuration (org-roam, consult-org-roam, ...)

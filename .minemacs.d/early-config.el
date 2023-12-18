@@ -5,8 +5,8 @@
 ;; these used in macros.
 
 ;; Set log level to `info' rather than `error'
-(unless minemacs-verbose
-  (setq minemacs-msg-level 2))
+;(unless minemacs-verbose
+;  (setq minemacs-msg-level 2)
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)

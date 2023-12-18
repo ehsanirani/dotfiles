@@ -1,33 +1,51 @@
 ;;;;;;
 
 
-(use-package eglot-jl
+;; Quarto with use-package:
+(use-package quarto-mode
   :straight t)
 
 
-(use-package julia-mode
-  :straight t
-  :mode "\\.jl$"
-  :interpreter ("julia +1.9" . julia-mode)
-  :init (setenv "JULIA_NUM_THREADS" "4")
-  :config
-  (add-hook 'julia-mode-hook 'eglot-jl-init)
-  (add-hook 'julia-mode-hook 'eglot-ensure)
-  (add-hook 'julia-mode-hook (lambda () (setq julia-repl-set-terminal-backend 'vterm)))
-  (add-hook 'julia-mode-hook (lambda () (setq julia-repl-set-terminal-backend 'vterm)))
-  (add-hook 'julia-mode-hook (lambda () (setq julia-repl-set-terminal-backend 'vterm))))
+(use-package eglot-jl
+  :straight t)
 
-;; (use-package julia-ts-mode
+;; (use-package julia-mode
 ;;   :straight t
 ;;   :mode "\\.jl$"
-;;  :interpreter ("julia +1.9" . julia-mode)
-;;  :init (setenv "JULIA_NUM_THREADS" "4")
-;;  :config
-;;  (add-hook 'julia-mode-hook 'eglot-jl-init)
-;;  (add-hook 'julia-mode-hook 'eglot-ensure)
-;;  (add-hook 'julia-mode-hook (lambda () (setq julia-repl-set-terminal-backend 'vterm)))
-;;  (add-hook 'julia-mode-hook (lambda () (setq julia-repl-set-terminal-backend 'vterm)))
-;;  (add-hook 'julia-mode-hook (lambda () (setq julia-repl-set-terminal-backend 'vterm))))
+;;   :interpreter ("julia +1.9" . julia-mode)
+;;   :init (setenv "JULIA_NUM_THREADS" "4")
+;;   :config
+;;   (add-hook 'julia-mode-hook 'eglot-jl-init)
+;;   (add-hook 'julia-mode-hook 'eglot-ensure)
+;;   (add-hook 'julia-mode-hook (lambda () (setq julia-repl-set-terminal-backend 'vterm)))
+;;   (add-hook 'julia-mode-hook (lambda () (setq julia-repl-set-terminal-backend 'vterm)))
+;;   (add-hook 'julia-mode-hook (lambda () (setq julia-repl-set-terminal-backend 'vterm))))
+
+;; Add any specific configuration for julia-formatter here
+
+(use-package julia-ts-mode
+  :straight t
+  :mode "\\.jl$"
+ :interpreter ("julia +1.9" . julia-mode)
+ :init (setenv "JULIA_NUM_THREADS" "4")
+ :config
+ (add-hook 'julia-mode-hook 'eglot-jl-init)
+ (add-hook 'julia-mode-hook 'eglot-ensure)
+ (add-hook 'julia-mode-hook (lambda () (setq julia-repl-set-terminal-backend 'vterm)))
+ (add-hook 'julia-mode-hook (lambda () (setq julia-repl-set-terminal-backend 'vterm)))
+ (add-hook 'julia-mode-hook (lambda () (setq julia-repl-set-terminal-backend 'vterm)))
+ (add-hook 'julia-mode-hook #'julia-formatter-mode))
+
+;; Julia Formatter
+(use-package julia-formatter
+  :straight (julia-formatter :type git :host codeberg :repo "FelipeLema/julia-formatter.el"
+                             :files ("julia-formatter.el"
+                                     "toml-respects-json.el"
+                                     "formatter_service.jl"
+                                     "Manifest.toml" "Project.toml")))
+
+
+;(add-hook 'julia-formatter-mode-hook #'aggressive-indent)
 
 (setq eglot-connect-timeout 1000)
 
@@ -58,14 +76,14 @@
 (use-package blacken
   :straight t)
 
-(use-package poetry
-  :straight t
-  :defer t
-  :config
-  ;; Checks for the correct virtualenv. Better strategy IMO because the default
-  ;; one is quite slow.
-  (setq poetry-tracking-strategy 'switch-buffer)
-  :hook (python-mode . poetry-tracking-mode))
+;; (use-package poetry
+;;   :straight t
+;;   :defer t
+;;   :config
+;;   ;; Checks for the correct virtualenv. Better strategy IMO because the default
+;;   ;; one is quite slow.
+;;   ;(setq poetry-tracking-strategy 'switch-buffer)
+;;   :hook (python-mode . poetry-tracking-mode))
 
 ;; Fix path
 (use-package exec-path-from-shell
