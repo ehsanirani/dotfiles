@@ -26,13 +26,11 @@
 (use-package julia-ts-mode
   :straight t
   :mode "\\.jl$"
- :interpreter ("julia +1.9" . julia-mode)
+ :interpreter ("julia" . julia-mode)
  :init (setenv "JULIA_NUM_THREADS" "4")
  :config
  (add-hook 'julia-mode-hook 'eglot-jl-init)
  (add-hook 'julia-mode-hook 'eglot-ensure)
- (add-hook 'julia-mode-hook (lambda () (setq julia-repl-set-terminal-backend 'vterm)))
- (add-hook 'julia-mode-hook (lambda () (setq julia-repl-set-terminal-backend 'vterm)))
  (add-hook 'julia-mode-hook (lambda () (setq julia-repl-set-terminal-backend 'vterm)))
  (add-hook 'julia-mode-hook #'julia-formatter-mode))
 
@@ -56,7 +54,7 @@
 
 (use-package julia-repl
   :straight t
-  :interpreter ("julia +1.9" . julia-mode)
+  :interpreter ("julia" . julia-mode)
   :hook (julia-mode . julia-repl-mode)
 
   :init
