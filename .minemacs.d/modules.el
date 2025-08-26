@@ -16,6 +16,8 @@
 ;;; List of enabled modules
 (setq minemacs-modules
       '(me-ui             ; User interface (svg-lib, focus, mixed-pitch, ...)
+        me-nano           ; N Λ N O Emacs, ...
+        me-ai             ; AI assistant using ollama (ellama, llm, ...)
         me-editor         ; Editing (tempel, smartparens, ligature, ...)
         me-daemon         ; Emacs daemon tweaks
         me-undo           ; Better undoing (undo-fu, undo-fu-session, vundo, ...)
@@ -60,6 +62,7 @@
        minemacs-modules
        '(ehsan-modules/ee-uitools
          ehsan-modules/ee-prog
+         ehsan-modules/ee-obsidian
          ehsan-modules/ee-org)))
 ;;; List of disabled packages
 ;; You can set `minemacs-disabled-packages' to disable some packages. For
@@ -84,8 +87,8 @@
 ;; their names indicate, are OBSOLETE and NOT SUPPORTED.
 (setq minemacs-modules
      (append
-        minemacs-modules
-        '(obsolete/me-blamer)))           ; Show code coverage results (cov, ...)
+        minemacs-modules))
+;;        '(obsolete/me-blamer)))           ; Show code coverage results (cov, ...)
 ;;          obsolete/me-eaf           ; EAF apps (browser, jupyter, file-sender, ...)
 ;;          obsolete/me-flycheck      ; Static checkers (flycheck, ...)
 ;;          obsolete/me-org-roam      ; Org roam configuration (org-roam, consult-org-roam, ...)

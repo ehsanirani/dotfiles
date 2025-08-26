@@ -12,7 +12,7 @@
 ;; Set a theme for MinEmacs, supported themes include these from `doom-themes'
 ;; or built-in themes
 ;(setq minemacs-theme 'doom-vibrant) ; `doom-one' is a dark theme, `doom-one-light' is the light one
-(setq minemacs-theme 'doom-material-dark) ; `doom-one' is a dark theme, `doom-one-light' is the light one
+(setq minemacs-theme 'doom-spacegrey) ; `doom-one' is a dark theme, `doom-one-light' is the light one
 
 ;; MinEmacs defines the variable `minemacs-fonts-plist' that is used by the
 ;; `+setup-fonts' function. The function checks and enables the first available
@@ -80,9 +80,6 @@
  ;; `+lsp-auto-enable' instead to automatically enable LSP mode in supported
  ;; modes (from the `me-lsp' module).
  (+eglot-auto-enable)
-
- ;; Add `ocaml-mode' to `eglot' auto-enable modes
- (add-to-list '+eglot-auto-enable-modes 'ocaml-mode)
 
  (with-eval-after-load 'eglot
    ;; You can use this to fill `+eglot-auto-enable-modes' with all supported
@@ -189,4 +186,4 @@
           :extends '("/opt/ros/foxy/")))))
 
 
-(setq doom-modeline-height 60)
+;(setq doom-modeline-height 60)
