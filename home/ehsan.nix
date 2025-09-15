@@ -3,7 +3,6 @@
 let
   ompTheme = pkgs.fetchurl {
     url = "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/v24.6.3/themes/lean.omp.json";
-    sha256 = "sha256-1b2R6x0jqV6bpGzuI5b1VvMMgLJkXxY3J0pHw3KqZ0=";
   };
 in
 {
