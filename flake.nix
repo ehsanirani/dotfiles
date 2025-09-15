@@ -14,7 +14,6 @@
   in {
     homeConfigurations.ehsan = home-manager.lib.homeManagerConfiguration {
       pkgs = nixpkgs.legacyPackages.${system};   # <-- add this
-      inherit system;
       modules = [ ./home/ehsan.nix ];
     };
 
