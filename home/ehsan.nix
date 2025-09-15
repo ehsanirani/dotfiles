@@ -27,7 +27,7 @@ in
   programs.zsh = {
     enable = true;
     autosuggestion.enable = true;
-    syntaxhighlighting.enable = true;
+    syntaxHighlighting.enable = true;
 
     # prompt & completions
     initContent = ''
