@@ -30,6 +30,8 @@
     pulse.enable = true;
   };
 
+  # Shell
+  programs.zsh.enable = true;
   # Users
   users.users.ehsan = {
     isNormalUser = true;

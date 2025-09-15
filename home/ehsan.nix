@@ -19,7 +19,7 @@
     enable = true;
     enableAutosuggestions = true;
     enableSyntaxHighlighting = true;
-    initExtra = ''
+    initContent = ''
       export EDITOR=emacsclient
       eval "$(zoxide init zsh)"
     '';
