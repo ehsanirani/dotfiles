@@ -1,10 +1,5 @@
 { config, pkgs, lib, ... }:
 
-let
-  ompTheme = pkgs.fetchurl {
-    url = "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/v24.6.3/themes/lean.omp.json";
-  };
-in
 {
   home.username = "ehsan";
   home.homeDirectory = "/home/ehsan";
@@ -30,7 +25,7 @@ in
 
     # prompt & completions
     initContent = ''
-      eval "$(${pkgs.oh-my-posh}/bin/oh-my-posh init zsh --config ${ompTheme})"
+      eval "$(${pkgs.oh-my-posh}/bin/oh-my-posh init zsh)"
       source <(${pkgs.fzf}/bin/fzf --zsh)
       eval "$(${pkgs.zoxide}/bin/zoxide init zsh)"
       eval "$(${pkgs.uv}/bin/uv generate-shell-completion zsh)"
