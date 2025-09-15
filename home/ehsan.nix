@@ -47,7 +47,6 @@
     ripgrep fd eza tree tmux zellij htop btop
     zoxide direnv
     firefox
-    telegram
   ];
 
   systemd.user.services.emacs-daemon = {
