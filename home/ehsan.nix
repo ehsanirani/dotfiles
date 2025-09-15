@@ -2,8 +2,8 @@
 
 let
   ompTheme = pkgs.fetchurl {
-    url = "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/powerlevel10k_lean_extended.omp.json";
-    sha256 = "";   # `nix-prefetch-url <url>` if you want a fixed hash
+    url = "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/v24.6.3/themes/lean.omp.json";
+    sha256 = "sha256-1b2R6x0jqV6bpGzuI5b1VvMMgLJkXxY3J0pHw3KqZ0=";
   };
 in
 {
@@ -26,8 +26,8 @@ in
 
   programs.zsh = {
     enable = true;
-    enableAutosuggestions = true;
-    enableSyntaxHighlighting = true;
+    autosuggestion.enable = true;
+    syntaxhighlighting.enable = true;
 
     # prompt & completions
     initContent = ''
