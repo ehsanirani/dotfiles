@@ -1,5 +1,7 @@
 { config, pkgs, lib, ... }:
-
+let
+  ompTheme = "${pkgs.oh-my-posh}/share/oh-my-posh/themes/multiverse-neon.omp.json";
+in
 {
   home.username = "ehsan";
   home.homeDirectory = "/home/ehsan";
@@ -25,7 +27,7 @@
 
     # prompt & completions
     initContent = ''
-      eval "$(${pkgs.oh-my-posh}/bin/oh-my-posh init zsh)"
+      eval "$(${pkgs.oh-my-posh}/bin/oh-my-posh init zsh --config ${ompTheme})"
       source <(${pkgs.fzf}/bin/fzf --zsh)
       eval "$(${pkgs.zoxide}/bin/zoxide init zsh)"
       eval "$(${pkgs.uv}/bin/uv generate-shell-completion zsh)"
@@ -60,6 +62,11 @@
   # PACKAGES  (latest by default)
   #########################################################################
   home.packages = with pkgs; [
+    alacritty
+    wezterm
+    kitty
+    foot
+    rio
     julia          # newest stable
     python3
     uv
