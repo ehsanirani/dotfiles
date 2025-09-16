@@ -7,19 +7,17 @@
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    agenix.url = "github:ryantm/agenix";
   };
-
-  outputs = { self, nixpkgs, home-manager }: let
+  
+  outputs = { self, nixpkgs, home-manager, agenix, ... }: let
     system = "x86_64-linux";
   in {
-    homeConfigurations.ehsan = home-manager.lib.homeManagerConfiguration {
-      pkgs = nixpkgs.legacyPackages.${system};   # <-- add this
-      modules = [ ./home/ehsan.nix ];
-    };
-
+    # System level, used at boot
     nixosConfigurations.laptop-dell = nixpkgs.lib.nixosSystem {
       inherit system;
       modules = [
+        agenix.nixosModules.default
         ./hosts/laptop-dell.nix
         home-manager.nixosModules.home-manager
         {

@@ -1,11 +1,19 @@
 { config, pkgs, lib, ... }:
 let
-  ompTheme = "${pkgs.oh-my-posh}/share/oh-my-posh/themes/multiverse-neon.omp.json";
+  ompTheme = ./config/oh-my-posh/powerlevel10k_lean_extended.omp.json;
 in
 {
   home.username = "ehsan";
   home.homeDirectory = "/home/ehsan";
   home.stateVersion = "25.05";
+
+  ########################################################
+  #  XDG dot-files
+  ########################################################
+    xdg.configFile = {
+    "wezterm/wezterm.lua".source = ./config/wezterm/wezterm.lua;
+    "zellij/config.kdl".source   = ./config/zellij/config.kdl;
+  };
 
   #########################################################################
   # PROGRAMS  (latest versions by default)
