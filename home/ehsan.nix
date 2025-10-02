@@ -93,6 +93,10 @@ in
     uv
     rustc
     cargo
+    rustfmt
+    rust-analyzer
+    pkg-config      # needed for cargo to find libraries
+    openssl         # commonly needed by Rust crates
     oh-my-posh
     fzf
     zoxide
