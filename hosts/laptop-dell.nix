@@ -29,8 +29,8 @@
     group = "users";
     mode  = "0600";
   };
-  #age.identityPaths = [ "/home/ehsan/.ssh/id_ed25519" ];
-  age.identityPaths = [ "/home/ehsan/.ssh/id_ed25519" ];   # target path, not source
+  # Use host key instead of user key to avoid circular dependency during rebuild
+  age.identityPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
   #age.identity = builtins.readFile ../secrets/id_ed25519.age;   # encrypted, safe to store
 
   #######################################################################
