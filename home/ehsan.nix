@@ -84,7 +84,7 @@ in
     kitty
     foot
     rio
-    julia          # newest stable
+    juliaup        # Julia version manager (use: juliaup add release, juliaup default release)
     python3
     uv
     rustc
