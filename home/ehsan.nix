@@ -102,6 +102,7 @@ in
     btop
     firefox
     zellij
+    cmake          # needed for emacs vterm compilation
     # Nerd Fonts for icons (new syntax for NixOS 25.05)
     nerd-fonts.fira-code
     nerd-fonts.jetbrains-mono
