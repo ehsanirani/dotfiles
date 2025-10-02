@@ -15,11 +15,12 @@ in
     "zellij/config.kdl".source   = ./config/zellij/config.kdl;
   };
 
-  # Julia startup file
-  home.file.".julia/config/startup.jl".source = ./config/julia/startup.jl;
-
-  # Emacs config in ~/.emacs.d
-  home.file = lib.mkIf (eemacs != null) {
+  # Home files (emacs, julia, etc)
+  home.file = {
+    # Julia startup file
+    ".julia/config/startup.jl".source = ./config/julia/startup.jl;
+  } // lib.optionalAttrs (eemacs != null) {
+    # Emacs config in ~/.emacs.d
     ".emacs.d/init.el".source       = "${eemacs}/init.el";
     ".emacs.d/config.el".source     = "${eemacs}/config.el";
     ".emacs.d/early-init.el".source = "${eemacs}/early-init.el";
