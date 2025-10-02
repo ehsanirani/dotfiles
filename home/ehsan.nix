@@ -103,7 +103,7 @@ in
     firefox
     zellij
     # Nerd Fonts for icons
-    (nerdfonts.override { fonts = [ "JetBrainsMono" "FiraCode" "Iosevka" ]; })
+    (nerdfonts.override { fonts = [ "FiraCode" ]; })
   ];
 
   #########################################################################
