@@ -15,6 +15,9 @@ in
     "zellij/config.kdl".source   = ./config/zellij/config.kdl;
   };
 
+  # Julia startup file
+  home.file.".julia/config/startup.jl".source = ./config/julia/startup.jl;
+
   # Emacs config in ~/.emacs.d
   home.file = lib.mkIf (eemacs != null) {
     ".emacs.d/init.el".source       = "${eemacs}/init.el";
