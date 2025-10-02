@@ -71,7 +71,7 @@ in
 
   programs.emacs = {
     enable = true;
-    package = pkgs.emacs29-pgtk;  # Emacs 29 with native compilation and pure GTK
+    package = pkgs.emacs;  # Latest stable Emacs with all features including X11
   };
 
   #########################################################################
