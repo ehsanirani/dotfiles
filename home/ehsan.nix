@@ -71,7 +71,7 @@ in
 
   programs.emacs = {
     enable = true;
-    # no version pinned → latest stable
+    package = pkgs.emacs29-pgtk;  # Emacs 29 with native compilation and pure GTK
   };
 
   #########################################################################
