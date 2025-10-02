@@ -10,13 +10,17 @@ in
   ########################################################
   #  XDG dot-files
   ########################################################
-    xdg.configFile = {
+  xdg.configFile = {
     "wezterm/wezterm.lua".source = ./config/wezterm/wezterm.lua;
     "zellij/config.kdl".source   = ./config/zellij/config.kdl;
-    "emacs/init.el".source       = "${eemacs}/init.el";
-    "emacs/config.el".source     = "${eemacs}/config.el";
-    "emacs/early-init.el".source = "${eemacs}/early-init.el";
-    "emacs/modules".source       = "${eemacs}/modules";
+  };
+
+  # Emacs config in ~/.emacs.d
+  home.file = {
+    ".emacs.d/init.el".source       = "${eemacs}/init.el";
+    ".emacs.d/config.el".source     = "${eemacs}/config.el";
+    ".emacs.d/early-init.el".source = "${eemacs}/early-init.el";
+    ".emacs.d/modules".source       = "${eemacs}/modules";
   };
 
   #########################################################################
