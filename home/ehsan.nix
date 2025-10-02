@@ -84,7 +84,6 @@ in
     kitty
     foot
     rio
-    julia-bin      # Latest Julia binary from official releases
     python3
     uv
     rustc
@@ -115,6 +114,16 @@ in
 
   # Enable fontconfig for proper font detection
   fonts.fontconfig.enable = true;
+
+  # Install juliaup (not in nixpkgs, install via official installer)
+  home.activation.installJuliaup = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    if [ ! -f "$HOME/.juliaup/bin/juliaup" ]; then
+      $DRY_RUN_CMD ${pkgs.curl}/bin/curl -fsSL https://install.julialang.org | $DRY_RUN_CMD ${pkgs.bash}/bin/sh -s -- --yes
+    fi
+  '';
+
+  # Add juliaup to PATH
+  home.sessionPath = [ "$HOME/.juliaup/bin" ];
 
   #########################################################################
   # SERVICES
