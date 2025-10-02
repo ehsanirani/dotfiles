@@ -1,4 +1,4 @@
-{ config, pkgs, lib, eemacs ? null, ... }:
+{ config, pkgs, lib, eemacs ? null, pkgs-unstable, ... }:
 let
   ompTheme = ./config/oh-my-posh/powerlevel10k_lean_extended.omp.json;
 in
@@ -55,7 +55,6 @@ in
       alias find='${pkgs.fd}/bin/fd'
       alias grep='${pkgs.ripgrep}/bin/rg'
 
-      [[ -d "$HOME/.juliaup/bin" ]] && export PATH="$HOME/.juliaup/bin:$PATH"
       [[ -d "$HOME/bin"        ]] && PATH="$HOME/bin:$PATH"
       [[ -d "$HOME/.local/bin" ]] && PATH="$HOME/.local/bin:$PATH"
 
@@ -80,6 +79,7 @@ in
   #########################################################################
   home.packages = with pkgs; [
     home-manager   # standalone CLI for fast user rebuilds
+    pkgs-unstable.julia-bin  # Latest Julia from unstable channel
     alacritty
     wezterm
     kitty
@@ -116,17 +116,6 @@ in
 
   # Enable fontconfig for proper font detection
   fonts.fontconfig.enable = true;
-
-  # Install juliaup (not in nixpkgs, install via official installer)
-  home.activation.installJuliaup = lib.hm.dag.entryAfter ["writeBoundary"] ''
-    if [ ! -f "$HOME/.juliaup/bin/juliaup" ]; then
-      export PATH="${pkgs.curl}/bin:${pkgs.bash}/bin:$PATH"
-      $DRY_RUN_CMD curl -fsSL https://install.julialang.org | $DRY_RUN_CMD sh -s -- --yes --add-to-path=no
-    fi
-  '';
-
-  # Add juliaup to PATH
-  home.sessionPath = [ "$HOME/.juliaup/bin" ];
 
   #########################################################################
   # SERVICES
