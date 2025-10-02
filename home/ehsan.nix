@@ -101,6 +101,7 @@ in
     btop
     firefox
     zellij
+    curl           # needed for juliaup and other downloads
     cmake          # needed for emacs vterm compilation
     gcc            # C compiler for vterm-module
     gnumake        # make for building vterm
