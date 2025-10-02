@@ -120,8 +120,7 @@ in
   home.activation.installJuliaup = lib.hm.dag.entryAfter ["writeBoundary"] ''
     if [ ! -f "$HOME/.juliaup/bin/juliaup" ]; then
       export PATH="${pkgs.curl}/bin:${pkgs.bash}/bin:$PATH"
-      export JULIAUP_INSTALLER_SKIP_CONFIRMATION=1
-      $DRY_RUN_CMD curl -fsSL https://install.julialang.org | $DRY_RUN_CMD sh -s -- --yes --skip-confirmation
+      $DRY_RUN_CMD curl -fsSL https://install.julialang.org | $DRY_RUN_CMD sh -s -- --yes --add-to-path=no
     fi
   '';
 
