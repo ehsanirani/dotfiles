@@ -1,4 +1,4 @@
-{ config, pkgs, lib, eemacs, ... }:
+{ config, pkgs, lib, eemacs ? null, ... }:
 let
   ompTheme = ./config/oh-my-posh/powerlevel10k_lean_extended.omp.json;
 in
@@ -16,7 +16,7 @@ in
   };
 
   # Emacs config in ~/.emacs.d
-  home.file = {
+  home.file = lib.mkIf (eemacs != null) {
     ".emacs.d/init.el".source       = "${eemacs}/init.el";
     ".emacs.d/config.el".source     = "${eemacs}/config.el";
     ".emacs.d/early-init.el".source = "${eemacs}/early-init.el";
