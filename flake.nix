@@ -34,7 +34,7 @@
     };
 
     # User level, fast rebuilds without sudo
-    homeConfigurations."ehsan@laptop-dell" = home-manager.lib.homeManagerConfiguration {
+    homeConfigurations.ehsan = home-manager.lib.homeManagerConfiguration {
       pkgs = nixpkgs.legacyPackages.${system};
       modules = [ ./home/ehsan.nix ];
       extraSpecialArgs = { inherit eemacs; };
