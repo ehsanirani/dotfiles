@@ -70,6 +70,7 @@ in
   # PACKAGES  (latest by default)
   #########################################################################
   home.packages = with pkgs; [
+    home-manager   # standalone CLI for fast user rebuilds
     alacritty
     wezterm
     kitty
