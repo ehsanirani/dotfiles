@@ -55,6 +55,7 @@ in
       alias find='${pkgs.fd}/bin/fd'
       alias grep='${pkgs.ripgrep}/bin/rg'
 
+      [[ -d "$HOME/.juliaup/bin" ]] && export PATH="$HOME/.juliaup/bin:$PATH"
       [[ -d "$HOME/bin"        ]] && PATH="$HOME/bin:$PATH"
       [[ -d "$HOME/.local/bin" ]] && PATH="$HOME/.local/bin:$PATH"
 
