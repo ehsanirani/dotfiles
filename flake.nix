@@ -8,9 +8,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     agenix.url = "github:ryantm/agenix";
+    eemacs = {
+      url = "github:ehsanirani/eemacs";
+      flake = false;
+    };
   };
   
-  outputs = { self, nixpkgs, home-manager, agenix, ... }: let
+  outputs = { self, nixpkgs, home-manager, agenix, eemacs, ... }: let
     system = "x86_64-linux";
   in {
     # System level, used at boot
@@ -24,6 +28,7 @@
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.users.ehsan = import ./home/ehsan.nix;
+          home-manager.extraSpecialArgs = { inherit eemacs; };
         }
       ];
     };
@@ -32,6 +37,7 @@
     homeConfigurations."ehsan@laptop-dell" = home-manager.lib.homeManagerConfiguration {
       pkgs = nixpkgs.legacyPackages.${system};
       modules = [ ./home/ehsan.nix ];
+      extraSpecialArgs = { inherit eemacs; };
     };
   };
 }

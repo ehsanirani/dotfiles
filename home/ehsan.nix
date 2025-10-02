@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, eemacs, ... }:
 let
   ompTheme = ./config/oh-my-posh/powerlevel10k_lean_extended.omp.json;
 in
@@ -13,6 +13,10 @@ in
     xdg.configFile = {
     "wezterm/wezterm.lua".source = ./config/wezterm/wezterm.lua;
     "zellij/config.kdl".source   = ./config/zellij/config.kdl;
+    "emacs/init.el".source       = "${eemacs}/init.el";
+    "emacs/config.el".source     = "${eemacs}/config.el";
+    "emacs/early-init.el".source = "${eemacs}/early-init.el";
+    "emacs/modules".source       = "${eemacs}/modules";
   };
 
   #########################################################################
