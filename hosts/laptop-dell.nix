@@ -87,6 +87,13 @@
     auto-optimise-store = true;
   };
 
+  # Enable nix-ld for running dynamically linked executables (needed for juliaup)
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+    stdenv.cc.cc
+    zlib
+  ];
+
   # System-wide packages
   environment.systemPackages = with pkgs; [
     git wget curl gnugrep gnutar gzip
