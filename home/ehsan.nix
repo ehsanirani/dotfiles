@@ -119,7 +119,8 @@ in
   # Install juliaup (not in nixpkgs, install via official installer)
   home.activation.installJuliaup = lib.hm.dag.entryAfter ["writeBoundary"] ''
     if [ ! -f "$HOME/.juliaup/bin/juliaup" ]; then
-      $DRY_RUN_CMD ${pkgs.curl}/bin/curl -fsSL https://install.julialang.org | $DRY_RUN_CMD ${pkgs.bash}/bin/sh -s -- --yes
+      export PATH="${pkgs.curl}/bin:${pkgs.bash}/bin:$PATH"
+      $DRY_RUN_CMD curl -fsSL https://install.julialang.org | $DRY_RUN_CMD sh -s -- --yes
     fi
   '';
 
