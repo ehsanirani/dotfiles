@@ -103,6 +103,10 @@ in
     firefox
     zellij
     cmake          # needed for emacs vterm compilation
+    gcc            # C compiler for vterm-module
+    gnumake        # make for building vterm
+    libtool        # build tools for vterm
+    libvterm       # vterm library
     # Nerd Fonts for icons (new syntax for NixOS 25.05)
     nerd-fonts.fira-code
     nerd-fonts.jetbrains-mono
