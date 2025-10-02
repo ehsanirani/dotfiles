@@ -102,6 +102,8 @@ in
     btop
     firefox
     zellij
+    # Nerd Fonts for icons
+    (nerdfonts.override { fonts = [ "JetBrainsMono" "FiraCode" "Iosevka" ]; })
   ];
 
   #########################################################################
