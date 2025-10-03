@@ -7,7 +7,7 @@ plugins=(
 # Modern CLI aliases
 alias ls='eza --icons --git'
 alias ll='eza -l --icons --git'
-alias cat='bat'
+#alias cat='bat'
 alias find='fd'
 alias grep='rg'
 alias cd='z'
