@@ -42,15 +42,11 @@ in
 
   programs.zsh = {
     enable = true;
-    autosuggestion = {
-      enable = true;
-      strategy = [ "history" "completion" ];
-    };
-    syntaxHighlighting.enable = true;
 
     # prompt & completions
-    initContent = ''
+    initExtra = ''
       eval "$(${pkgs.oh-my-posh}/bin/oh-my-posh init zsh --config ${ompTheme})"
+      source <(${pkgs.fzf}/bin/fzf --zsh)
       eval "$(${pkgs.zoxide}/bin/zoxide init zsh --cmd cd)"
       eval "$(${pkgs.uv}/bin/uv generate-shell-completion zsh)"
       eval "$(${pkgs.uv}/bin/uvx --generate-shell-completion zsh)"
@@ -63,17 +59,11 @@ in
 
       [[ -d "$HOME/bin"        ]] && PATH="$HOME/bin:$PATH"
       [[ -d "$HOME/.local/bin" ]] && PATH="$HOME/.local/bin:$PATH"
-
-      # Load fzf without overriding arrow keys
-      source <(${pkgs.fzf}/bin/fzf --zsh)
-
-      # History search with up/down arrows (matches beginning of line)
-      autoload -U up-line-or-beginning-search down-line-or-beginning-search
-      zle -N up-line-or-beginning-search
-      zle -N down-line-or-beginning-search
-      bindkey '^[[A' up-line-or-beginning-search
-      bindkey '^[[B' down-line-or-beginning-search
     '';
+
+    # Load plugins in same order as Oh My Zsh on PC
+    autosuggestion.enable = true;
+    syntaxHighlighting.enable = true;
 
     sessionVariables = { EDITOR = "emacsclient"; };
   };
