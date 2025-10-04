@@ -92,6 +92,13 @@
   programs.nix-ld.libraries = with pkgs; [
     stdenv.cc.cc
     zlib
+    gcc.cc.lib   # libstdc++
+    glibc        # libc
+    zlib
+    bzip2
+    xz
+    stdenv.cc.cc.lib  # ensures some compilers' runtime
+    openssl
   ];
 
   # System-wide packages

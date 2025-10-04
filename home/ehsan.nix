@@ -77,7 +77,7 @@ in
     enable = true;
     package = pkgs.emacs;  # Latest stable Emacs with all features including X11
   };
-
+  
   #########################################################################
   # PACKAGES  (latest by default)
   #########################################################################
