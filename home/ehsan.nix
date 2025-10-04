@@ -117,6 +117,7 @@ in
     gnumake        # make for building vterm
     libtool        # build tools for vterm
     libvterm       # vterm library
+    telegram-desktop
     # Nerd Fonts for icons (new syntax for NixOS 25.05)
     nerd-fonts.fira-code
     nerd-fonts.jetbrains-mono
