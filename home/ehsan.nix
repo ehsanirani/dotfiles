@@ -44,7 +44,11 @@ in
     enable = true;
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
-    historySubstringSearch.enable = true;
+    historySubstringSearch = {
+      enable = true;
+      searchUpKey = "^[[A";    # Up arrow
+      searchDownKey = "^[[B";  # Down arrow
+    };
 
     # prompt & completions
     initContent = ''
@@ -105,7 +109,7 @@ in
     rio
     jujutsu
     python3
-    (pkgs.buildFHSUserEnv {
+    (pkgs.buildFHSEnv {
       name = "uv";
       targetPkgs = pkgs: with pkgs; [
         uv
