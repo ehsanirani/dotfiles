@@ -32,7 +32,18 @@
           "style": "plain",
           "template": "{{ .HEAD }} ",
           "type": "git"
+        },
+        {
+        "type": "jujutsu",
+        "style": "powerline",
+        "powerline_symbol": "",
+        "foreground": "#193549",
+        "background": "#ffeb3b",
+        "properties": {
+            "fetch_status": true,
+            "ignore_working_copy": false
         }
+    }
       ],
       "type": "prompt"
     },
