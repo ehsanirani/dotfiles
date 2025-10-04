@@ -73,6 +73,19 @@ in
     extraConfig = "set number relativenumber";
   };
 
+  # Enable nix-ld support for home-manager packages
+  programs.nix-index.enable = true;
+
+  # Set NIX_LD environment variables for dynamic linking
+  home.sessionVariables = {
+    NIX_LD_LIBRARY_PATH = lib.makeLibraryPath [
+      pkgs.stdenv.cc.cc
+      pkgs.zlib
+      pkgs.openssl
+      pkgs.glibc
+    ];
+  };
+
   programs.emacs = {
     enable = true;
     package = pkgs.emacs;  # Latest stable Emacs with all features including X11
