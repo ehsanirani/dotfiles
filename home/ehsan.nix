@@ -44,16 +44,11 @@ in
     enable = true;
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
-    historySubstringSearch = {
-      enable = true;
-      searchUpKey = "^[[A";    # Up arrow
-      searchDownKey = "^[[B";  # Down arrow
-    };
+    historySubstringSearch.enable = true;
 
     # prompt & completions
     initContent = ''
       eval "$(${pkgs.oh-my-posh}/bin/oh-my-posh init zsh --config ${ompTheme})"
-      source <(${pkgs.fzf}/bin/fzf --zsh)
       eval "$(${pkgs.zoxide}/bin/zoxide init zsh --cmd cd)"
       eval "$(${pkgs.uv}/bin/uv generate-shell-completion zsh)"
       eval "$(${pkgs.uv}/bin/uvx --generate-shell-completion zsh)"
@@ -67,6 +62,10 @@ in
       [[ -d "$HOME/bin"        ]] && PATH="$HOME/bin:$PATH"
       [[ -d "$HOME/.local/bin" ]] && PATH="$HOME/.local/bin:$PATH"
 
+      # Load fzf last, then rebind up/down for history substring search
+      source <(${pkgs.fzf}/bin/fzf --zsh)
+      bindkey '^[[A' history-substring-search-up
+      bindkey '^[[B' history-substring-search-down
     '';
 
     sessionVariables = { EDITOR = "emacsclient"; };
