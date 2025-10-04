@@ -104,7 +104,16 @@ in
     rio
     jujutsu
     python3
-    uv
+    (pkgs.buildFHSUserEnv {
+      name = "uv";
+      targetPkgs = pkgs: with pkgs; [
+        uv
+        stdenv.cc.cc.lib
+        zlib
+        openssl
+      ];
+      runScript = "uv";
+    })
     rustc
     cargo
     rustfmt
