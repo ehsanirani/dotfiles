@@ -42,9 +42,11 @@ in
 
   programs.zsh = {
     enable = true;
-    autosuggestion.enable = true;
+    autosuggestion = {
+      enable = true;
+      strategy = [ "history" "completion" ];
+    };
     syntaxHighlighting.enable = true;
-    historySubstringSearch.enable = true;
 
     # prompt & completions
     initContent = ''
@@ -62,10 +64,15 @@ in
       [[ -d "$HOME/bin"        ]] && PATH="$HOME/bin:$PATH"
       [[ -d "$HOME/.local/bin" ]] && PATH="$HOME/.local/bin:$PATH"
 
-      # Load fzf last, then rebind up/down for history substring search
+      # Load fzf without overriding arrow keys
       source <(${pkgs.fzf}/bin/fzf --zsh)
-      bindkey '^[[A' history-substring-search-up
-      bindkey '^[[B' history-substring-search-down
+
+      # History search with up/down arrows (matches beginning of line)
+      autoload -U up-line-or-beginning-search down-line-or-beginning-search
+      zle -N up-line-or-beginning-search
+      zle -N down-line-or-beginning-search
+      bindkey '^[[A' up-line-or-beginning-search
+      bindkey '^[[B' down-line-or-beginning-search
     '';
 
     sessionVariables = { EDITOR = "emacsclient"; };
