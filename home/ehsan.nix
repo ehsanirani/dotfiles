@@ -48,6 +48,7 @@ in
     # prompt & completions
     initContent = ''
       eval "$(${pkgs.oh-my-posh}/bin/oh-my-posh init zsh --config ${ompTheme})"
+      source <(${pkgs.fzf}/bin/fzf --zsh)
       eval "$(${pkgs.zoxide}/bin/zoxide init zsh --cmd cd)"
       eval "$(${pkgs.uv}/bin/uv generate-shell-completion zsh)"
       eval "$(${pkgs.uv}/bin/uvx --generate-shell-completion zsh)"
@@ -62,7 +63,7 @@ in
       [[ -d "$HOME/.local/bin" ]] && PATH="$HOME/.local/bin:$PATH"
 
       # Load fzf last - without overriding history search
-      eval "$(${pkgs.fzf}/bin/fzf --zsh)"
+      #eval "$(${pkgs.fzf}/bin/fzf --zsh)"
     '';
 
     sessionVariables = { EDITOR = "emacsclient"; };
@@ -72,19 +73,6 @@ in
     enable = true;
     defaultEditor = true;
     extraConfig = "set number relativenumber";
-  };
-
-  # Enable nix-ld support for home-manager packages
-  programs.nix-index.enable = true;
-
-  # Set NIX_LD environment variables for dynamic linking
-  home.sessionVariables = {
-    NIX_LD_LIBRARY_PATH = lib.makeLibraryPath [
-      pkgs.stdenv.cc.cc
-      pkgs.zlib
-      pkgs.openssl
-      pkgs.glibc
-    ];
   };
 
   programs.emacs = {
