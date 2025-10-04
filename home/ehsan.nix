@@ -42,16 +42,22 @@ in
 
   programs.zsh = {
     enable = true;
+    enableCompletion = false;
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
 
     # prompt & completions
     initContent = ''
       eval "$(${pkgs.oh-my-posh}/bin/oh-my-posh init zsh --config ${ompTheme})"
-      source <(${pkgs.fzf}/bin/fzf --zsh)
+      #source <(${pkgs.fzf}/bin/fzf --zsh)
       eval "$(${pkgs.zoxide}/bin/zoxide init zsh --cmd cd)"
-      eval "$(${pkgs.uv}/bin/uv generate-shell-completion zsh)"
-      eval "$(${pkgs.uv}/bin/uvx --generate-shell-completion zsh)"
+      #eval "$(${pkgs.uv}/bin/uv generate-shell-completion zsh)"
+      #eval "$(${pkgs.uv}/bin/uvx --generate-shell-completion zsh)"
+
+      # to fix up/down in nixos version of autosuggestion
+      # check https://nixos.wiki/wiki/Zsh
+      bindkey "''${key[Up]}" up-line-or-search
+      bindkey "''${key[Down]}" down-line-or-search
 
       alias ls='${pkgs.eza}/bin/eza --icons --git'
       alias ll='${pkgs.eza}/bin/eza -l --icons --git'
@@ -63,7 +69,7 @@ in
       [[ -d "$HOME/.local/bin" ]] && PATH="$HOME/.local/bin:$PATH"
 
       # Load fzf last - without overriding history search
-      #eval "$(${pkgs.fzf}/bin/fzf --zsh)"
+      eval "$(${pkgs.fzf}/bin/fzf --zsh)"
     '';
 
     sessionVariables = { EDITOR = "emacsclient"; };

@@ -71,6 +71,7 @@
 
   # Shell
   programs.zsh.enable = true;
+  programs.zsh.enableCompletion = false;
   # Users
   users.users.ehsan = {
     isNormalUser = true;
