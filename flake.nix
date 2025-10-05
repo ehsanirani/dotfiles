@@ -17,7 +17,10 @@
   
   outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, agenix, eemacs, ... }: let
     system = "x86_64-linux";
-    pkgs-unstable = import nixpkgs-unstable { inherit system; };
+    pkgs-unstable = import nixpkgs-unstable { 
+      inherit system; 
+      config.allowUnfree = true;
+    };
   in {
     # System level, used at boot
     nixosConfigurations.laptop-dell = nixpkgs.lib.nixosSystem {
@@ -37,7 +40,10 @@
 
     # User level, fast rebuilds without sudo
     homeConfigurations.ehsan = home-manager.lib.homeManagerConfiguration {
-      pkgs = nixpkgs.legacyPackages.${system};
+      pkgs = import nixpkgs { 
+        inherit system; 
+        config.allowUnfree = true;
+      };
       modules = [ ./home/ehsan.nix ];
       extraSpecialArgs = { inherit eemacs pkgs-unstable; };
     };

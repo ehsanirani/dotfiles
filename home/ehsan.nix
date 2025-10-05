@@ -3,6 +3,8 @@ let
   ompTheme = ./config/oh-my-posh/powerlevel10k_lean_extended.omp.json;
 in
 {
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
   home.username = "ehsan";
   home.homeDirectory = "/home/ehsan";
   home.stateVersion = "25.05";
@@ -75,6 +77,70 @@ in
     sessionVariables = { EDITOR = "emacsclient"; };
   };
 
+  programs.fish = {
+    enable = true;
+    interactiveShellInit = ''
+      # Initialize tools
+      ${pkgs.zoxide}/bin/zoxide init fish --cmd cd | source
+      ${pkgs.fzf}/bin/fzf --fish | source
+      
+      # Aliases
+      alias ls='${pkgs.eza}/bin/eza --icons --git'
+      alias ll='${pkgs.eza}/bin/eza -l --icons --git'
+      alias find='${pkgs.fd}/bin/fd'
+      alias grep='${pkgs.ripgrep}/bin/rg'
+      
+      # Add user paths
+      if test -d "$HOME/bin"
+        set -gx PATH "$HOME/bin" $PATH
+      end
+      if test -d "$HOME/.local/bin"
+        set -gx PATH "$HOME/.local/bin" $PATH
+      end
+    '';
+    shellAliases = {
+      ls = "${pkgs.eza}/bin/eza --icons --git";
+      ll = "${pkgs.eza}/bin/eza -l --icons --git";
+      find = "${pkgs.fd}/bin/fd";
+      grep = "${pkgs.ripgrep}/bin/rg";
+    };
+  };
+
+  programs.starship = {
+    enable = true;
+    enableZshIntegration = true;
+    enableFishIntegration = true;
+    settings = {
+      format = "$all$character";
+      character = {
+        success_symbol = "[➜](bold green)";
+        error_symbol = "[➜](bold red)";
+      };
+      directory = {
+        truncation_length = 3;
+        truncate_to_repo = false;
+      };
+      git_branch = {
+        symbol = " ";
+      };
+      git_status = {
+        conflicted = "⚡";
+        ahead = "⇡";
+        behind = "⇣";
+        diverged = "⇕";
+        untracked = "?";
+        stashed = "$";
+        modified = "!";
+        staged = "+";
+        renamed = "»";
+        deleted = "✘";
+      };
+      package = {
+        disabled = true;
+      };
+    };
+  };
+
   programs.neovim = {
     enable = true;
     defaultEditor = true;
@@ -92,6 +158,7 @@ in
   home.packages = with pkgs; [
     home-manager   # standalone CLI for fast user rebuilds
     pkgs-unstable.julia-bin  # Latest Julia from unstable channel
+    pkgs-unstable.claude-code
     alacritty
     wezterm
     kitty
@@ -116,6 +183,7 @@ in
     pkg-config      # needed for cargo to find libraries
     openssl         # commonly needed by Rust crates
     oh-my-posh
+    starship
     fzf
     zoxide
     eza
