@@ -28,13 +28,14 @@
       modules = [
         agenix.nixosModules.default
         ./hosts/laptop-dell.nix
-        home-manager.nixosModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.users.ehsan = import ./home/ehsan.nix;
-          home-manager.extraSpecialArgs = { inherit eemacs pkgs-unstable; };
-        }
+        # home-manager integration commented out - using standalone instead
+        # home-manager.nixosModules.home-manager
+        # {
+        #   home-manager.useGlobalPkgs = true;
+        #   home-manager.useUserPackages = true;
+        #   home-manager.users.ehsan = import ./home/ehsan.nix;
+        #   home-manager.extraSpecialArgs = { inherit eemacs pkgs-unstable; };
+        # }
       ];
     };
 
