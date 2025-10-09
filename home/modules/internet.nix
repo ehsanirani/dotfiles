@@ -6,5 +6,6 @@
     google-chrome
     chromium
     telegram-desktop
+    zulip
   ];
 }
