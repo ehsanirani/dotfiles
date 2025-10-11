@@ -6,10 +6,45 @@
     ".julia/config/startup.jl".source = ../config/julia/startup.jl;
   };
 
-  home.packages = with pkgs; [
-    # Julia (from unstable channel)
-    pkgs-unstable.julia-bin
+  # Add juliaup to PATH
+  programs.zsh.initContent = ''
+    [[ -d "$HOME/.juliaup/bin" ]] && PATH="$HOME/.juliaup/bin:$PATH"
+  '';
 
+  programs.fish.interactiveShellInit = ''
+    if test -d "$HOME/.juliaup/bin"
+      set -gx PATH "$HOME/.juliaup/bin" $PATH
+    end
+  '';
+
+  # Auto-install juliaup on activation
+  home.activation.installJuliaup = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    if [ ! -f "$HOME/.juliaup/juliaup" ]; then
+      export PATH="${pkgs.curl}/bin:${pkgs.wget}/bin:$PATH"
+
+      # Backup existing .zshrc and create a temporary writable one
+      if [ -L "$HOME/.zshrc" ] || [ -f "$HOME/.zshrc" ]; then
+        $DRY_RUN_CMD mv "$HOME/.zshrc" "$HOME/.zshrc.bak.juliaup"
+      fi
+      $DRY_RUN_CMD touch "$HOME/.zshrc"
+
+      # Install juliaup
+      $DRY_RUN_CMD ${pkgs.curl}/bin/curl -fsSL https://install.julialang.org | sh -s -- -y
+
+      # Restore original .zshrc
+      $DRY_RUN_CMD rm -f "$HOME/.zshrc"
+      if [ -e "$HOME/.zshrc.bak.juliaup" ]; then
+        $DRY_RUN_CMD mv "$HOME/.zshrc.bak.juliaup" "$HOME/.zshrc"
+      fi
+
+      # Install default Julia version
+      if [ -f "$HOME/.juliaup/bin/juliaup" ]; then
+        $DRY_RUN_CMD $HOME/.juliaup/bin/juliaup default release
+      fi
+    fi
+  '';
+
+  home.packages = with pkgs; [
     # Python with uv in FHS environment
     python3
     (pkgs.buildFHSEnv {
