@@ -1,19 +1,23 @@
 { config, pkgs, lib, eemacs ? null, ... }:
 
 {
-  # Emacs config files (conditional on eemacs parameter)
+  # Config files (Emacs and Neovim)
   home.file = lib.optionalAttrs (eemacs != null) {
     ".emacs.d/init.el".source       = "${eemacs}/init.el";
     ".emacs.d/config.el".source     = "${eemacs}/config.el";
     ".emacs.d/early-init.el".source = "${eemacs}/early-init.el";
     ".emacs.d/modules".source       = "${eemacs}/modules";
+  } // {
+    ".config/nvim" = {
+      source = ../config/nvim;
+      recursive = true;
+    };
   };
 
   # Neovim configuration
   programs.neovim = {
     enable = true;
     defaultEditor = true;
-    extraConfig = "set number relativenumber";
   };
 
   # Emacs configuration
