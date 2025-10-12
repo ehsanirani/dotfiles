@@ -6,14 +6,18 @@
     ".julia/config/startup.jl".source = ../config/julia/startup.jl;
   };
 
-  # Add juliaup to PATH
+  # Add juliaup and rustup to PATH
   programs.zsh.initContent = ''
     [[ -d "$HOME/.juliaup/bin" ]] && PATH="$HOME/.juliaup/bin:$PATH"
+    [[ -d "$HOME/.cargo/bin" ]] && PATH="$HOME/.cargo/bin:$PATH"
   '';
 
   programs.fish.interactiveShellInit = ''
     if test -d "$HOME/.juliaup/bin"
       set -gx PATH "$HOME/.juliaup/bin" $PATH
+    end
+    if test -d "$HOME/.cargo/bin"
+      set -gx PATH "$HOME/.cargo/bin" $PATH
     end
   '';
 
@@ -44,6 +48,37 @@
     fi
   '';
 
+  # Auto-install rustup on activation
+  home.activation.installRustup = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    if [ ! -f "$HOME/.cargo/bin/rustup" ]; then
+      export PATH="${pkgs.curl}/bin:$PATH"
+
+      # Backup existing shell rc files and create temporary writable ones
+      for file in .zshrc .zshenv .bash_profile .profile; do
+        if [ -L "$HOME/$file" ] || [ -f "$HOME/$file" ]; then
+          $DRY_RUN_CMD mv "$HOME/$file" "$HOME/$file.bak.rustup"
+        fi
+        $DRY_RUN_CMD touch "$HOME/$file"
+      done
+
+      # Install rustup
+      $DRY_RUN_CMD ${pkgs.curl}/bin/curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain stable --profile default
+
+      # Restore original shell rc files
+      for file in .zshrc .zshenv .bash_profile .profile; do
+        $DRY_RUN_CMD rm -f "$HOME/$file"
+        if [ -e "$HOME/$file.bak.rustup" ]; then
+          $DRY_RUN_CMD mv "$HOME/$file.bak.rustup" "$HOME/$file"
+        fi
+      done
+
+      # Install rust-analyzer
+      if [ -f "$HOME/.cargo/bin/rustup" ]; then
+        $DRY_RUN_CMD $HOME/.cargo/bin/rustup component add rust-analyzer
+      fi
+    fi
+  '';
+
   home.packages = with pkgs; [
     # Python with uv in FHS environment
     python3
@@ -57,12 +92,6 @@
       ];
       runScript = "uv";
     })
-
-    # Rust toolchain
-    rustc
-    cargo
-    rustfmt
-    rust-analyzer
 
     # Build essentials
     pkg-config      # needed for cargo to find libraries
