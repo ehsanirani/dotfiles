@@ -9,6 +9,8 @@
     # Robot Slab and Lato fonts
     roboto-slab
     lato
+    # Fontawesome
+    font-awesome
   ];
 
   # Enable fontconfig for proper font detection
