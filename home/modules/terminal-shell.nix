@@ -42,7 +42,10 @@ in
       eval "$(${pkgs.fzf}/bin/fzf --zsh)"
     '';
 
-    sessionVariables = { EDITOR = "emacsclient"; };
+    sessionVariables = {
+      EDITOR = "emacsclient";
+      PATH = "$HOME/.cargo/bin:$HOME/.juliaup/bin:$PATH";
+    };
   };
 
   # Fish configuration
