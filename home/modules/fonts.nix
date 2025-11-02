@@ -6,6 +6,9 @@
     nerd-fonts.fira-code
     nerd-fonts.jetbrains-mono
     nerd-fonts.iosevka
+    # Robot Slab and Lato fonts
+    roboto-slab
+    lato
   ];
 
   # Enable fontconfig for proper font detection
