@@ -103,5 +103,8 @@
 
     # Claude Code
     pkgs-unstable.claude-code
+
+    # MongoDB
+    mongodb-compass
   ];
 }

@@ -1,6 +1,8 @@
 { config, pkgs, ... }:
 
 {
+  nixpkgs.config.allowUnfree = true;
+  
   #######################################################################
   # 1.  SSH host keys (same fingerprint after every reinstall)
   #######################################################################
@@ -69,6 +71,12 @@
     pulse.enable = true;
   };
 
+  # MongoDB
+  services.mongodb = {
+    enable = true;
+    package = pkgs.mongodb-ce;
+  };
+  
   # Shell
   programs.zsh.enable = true;
   programs.zsh.enableCompletion = false;
