@@ -106,5 +106,9 @@
 
     # MongoDB
     mongodb-compass
+
+    # Typst
+    pkgs-unstable.typst
+    pkgs-unstable.tinymist
   ];
 }
