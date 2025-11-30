@@ -39,5 +39,10 @@
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   # Enable opengl
-  hardware.opengl.enable = true;
+  hardware.graphics = {
+    enable = true;
+    };
+
+  services.xserver.videoDrivers = [ "modesetting" ];
+
 }
