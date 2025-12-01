@@ -35,6 +35,13 @@
     libvterm       # vterm library
   ];
 
+  # Set environment variables from agenix secrets for systemd user session
+  # This ensures GUI-launched Emacs can access API keys
+  systemd.user.sessionVariables = {
+    DEEPSEEK_API_KEY = "$(test -f /run/agenix/deepseek-api-key && cat /run/agenix/deepseek-api-key)";
+    KIMI_API_KEY = "$(test -f /run/agenix/kimi-api-key && cat /run/agenix/kimi-api-key)";
+  };
+
   # Optional: Emacs daemon service (currently disabled)
   # systemd.user.services.emacs-daemon = {
   #   Unit = {

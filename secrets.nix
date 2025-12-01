@@ -4,4 +4,6 @@ let
 in
 {
   "secrets/id_ed25519.age".publicKeys = [ user-key host-key ];
+  "secrets/deepseek-api-key.age".publicKeys = [ user-key host-key ];
+  "secrets/kimi-api-key.age".publicKeys = [ user-key host-key ];
 }
