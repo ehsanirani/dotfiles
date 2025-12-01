@@ -36,10 +36,28 @@
   ];
 
   # Set environment variables from agenix secrets for systemd user session
+  # This systemd service runs at login and exports API keys to the user environment
   # This ensures GUI-launched Emacs can access API keys
-  systemd.user.sessionVariables = {
-    DEEPSEEK_API_KEY = "$(test -f /run/agenix/deepseek-api-key && cat /run/agenix/deepseek-api-key)";
-    KIMI_API_KEY = "$(test -f /run/agenix/kimi-api-key && cat /run/agenix/kimi-api-key)";
+  systemd.user.services.set-api-keys = {
+    Unit = {
+      Description = "Export API keys from agenix secrets to user environment";
+      After = [ "default.target" ];
+    };
+    Service = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStart = pkgs.writeShellScript "set-api-keys" ''
+        if [ -f /run/agenix/deepseek-api-key ]; then
+          ${pkgs.systemd}/bin/systemctl --user set-environment DEEPSEEK_API_KEY="$(cat /run/agenix/deepseek-api-key)"
+        fi
+        if [ -f /run/agenix/kimi-api-key ]; then
+          ${pkgs.systemd}/bin/systemctl --user set-environment KIMI_API_KEY="$(cat /run/agenix/kimi-api-key)"
+        fi
+      '';
+    };
+    Install = {
+      WantedBy = [ "default.target" ];
+    };
   };
 
   # Optional: Emacs daemon service (currently disabled)
