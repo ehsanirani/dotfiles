@@ -10,6 +10,7 @@
     ./modules/internet.nix
     ./modules/multimedia.nix
     ./modules/fonts.nix
+    ./modules/office.nix
   ];
 
   # Allow unfree packages
