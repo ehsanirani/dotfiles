@@ -31,6 +31,22 @@
     group = "users";
     mode  = "0600";
   };
+
+  # API keys
+  age.secrets.deepseek-api-key = {
+    file = ../secrets/deepseek-api-key.age;
+    owner = "ehsan";
+    group = "users";
+    mode = "0400";
+  };
+
+  age.secrets.kimi-api-key = {
+    file = ../secrets/kimi-api-key.age;
+    owner = "ehsan";
+    group = "users";
+    mode = "0400";
+  };
+
   # Use host key instead of user key to avoid circular dependency during rebuild
   age.identityPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
   #age.identity = builtins.readFile ../secrets/id_ed25519.age;   # encrypted, safe to store
@@ -80,11 +96,12 @@
   # Shell
   programs.zsh.enable = true;
   programs.zsh.enableCompletion = false;
+  programs.fish.enable = true;
   # Users
   users.users.ehsan = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "video" "audio" ];
-    shell = pkgs.zsh;
+    shell = pkgs.fish;
   };
 
   # Security

@@ -69,6 +69,14 @@ in
       if test -d "$HOME/.local/bin"
         set -gx PATH "$HOME/.local/bin" $PATH
       end
+
+      # Load API keys from agenix-decrypted secrets
+      if test -f /run/agenix/deepseek-api-key
+        set -gx DEEPSEEK_API_KEY (cat /run/agenix/deepseek-api-key)
+      end
+      if test -f /run/agenix/kimi-api-key
+        set -gx KIMI_API_KEY (cat /run/agenix/kimi-api-key)
+      end
     '';
     shellAliases = {
       ls = "${pkgs.eza}/bin/eza --icons --git";
