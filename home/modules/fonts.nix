@@ -11,6 +11,9 @@
     lato
     # Fontawesome
     font-awesome
+    # Persian fonts
+    sahel-fonts
+    vazir-fonts
   ];
 
   # Enable fontconfig for proper font detection
