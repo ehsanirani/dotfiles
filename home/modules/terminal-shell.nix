@@ -147,6 +147,7 @@ in
     fd         # better find
     ripgrep    # better grep
     tree       # directory tree viewer
+    glow       # Markdown viewer
 
     # System monitoring
     htop
