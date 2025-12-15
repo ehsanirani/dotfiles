@@ -105,6 +105,7 @@
     pkgs-unstable.claude-code
 
     # MongoDB
+    mongosh
     mongodb-compass
 
     # Typst
