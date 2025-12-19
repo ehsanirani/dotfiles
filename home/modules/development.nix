@@ -100,6 +100,7 @@
 
     # Version control
     jujutsu
+    prek
 
     # Claude Code
     pkgs-unstable.claude-code
@@ -107,6 +108,9 @@
     # MongoDB
     mongosh
     mongodb-compass
+
+    # Visualization
+    paraview
 
     # Typst
     pkgs-unstable.typst
