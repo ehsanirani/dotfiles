@@ -100,7 +100,7 @@
 
     # Version control
     jujutsu
-    prek
+    pkgs-unstable.prek
 
     # Claude Code
     pkgs-unstable.claude-code
