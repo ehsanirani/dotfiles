@@ -93,6 +93,9 @@
       runScript = "uv";
     })
 
+    # JS/TS
+    bun
+
     # Build essentials
     pkg-config      # needed for cargo to find libraries
     openssl         # commonly needed by Rust crates
@@ -111,6 +114,7 @@
 
     # Visualization
     paraview
+    mermaid-cli
 
     # Typst
     pkgs-unstable.typst
