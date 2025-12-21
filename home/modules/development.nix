@@ -101,6 +101,9 @@
     openssl         # commonly needed by Rust crates
     curl            # needed for juliaup and other downloads
 
+    # Tools
+    jq
+    
     # Version control
     jujutsu
     pkgs-unstable.prek
