@@ -103,6 +103,7 @@
 
     # Tools
     jq
+    killall
     
     # Version control
     jujutsu
