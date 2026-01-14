@@ -132,6 +132,9 @@
     git wget curl gnugrep gnutar gzip
   ];
 
+  # Enable native Wayland support for Electron/Chromium apps
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
   # NEVER change after install
   system.stateVersion = "25.05";
 }
