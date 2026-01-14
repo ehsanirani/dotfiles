@@ -7,5 +7,6 @@
     chromium
     telegram-desktop
     zulip
+    slack
   ];
 }
