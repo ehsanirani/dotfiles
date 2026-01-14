@@ -4,7 +4,7 @@
   # Config files (Emacs and Neovim)
   home.file = lib.optionalAttrs (eemacs != null) {
     ".emacs.d/init.el".source       = "${eemacs}/init.el";
-    ".emacs.d/config.el".source     = "${eemacs}/config.el";
+    ".emacs.d/config-sample.el".source = "${eemacs}/config-sample.el";
     ".emacs.d/early-init.el".source = "${eemacs}/early-init.el";
     ".emacs.d/modules".source       = "${eemacs}/modules";
   } // {
