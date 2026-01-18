@@ -2,6 +2,9 @@
 
 {
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.permittedInsecurePackages = [
+    "${pkgs.mongodb-ce.pname}-${pkgs.mongodb-ce.version}"
+  ];
   
   #######################################################################
   # 1.  SSH host keys (same fingerprint after every reinstall)
