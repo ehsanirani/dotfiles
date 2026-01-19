@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, pkgs-unstable, ... }:
 let
   ompTheme = ../config/oh-my-posh/powerlevel10k_lean_extended.omp.json;
 in
@@ -119,6 +119,25 @@ in
       package = {
         disabled = true;
       };
+    };
+  };
+
+  # Broot - terminal file manager with tree view
+  programs.broot = {
+    enable = true;
+    package = pkgs-unstable.broot;  # Latest version from unstable
+    enableZshIntegration = true;
+    enableFishIntegration = true;
+    settings = {
+      modal = false;  # Set to true for vim-like navigation
+      verbs = [
+        {
+          invocation = "edit";
+          shortcut = "e";
+          execution = "$EDITOR +{line} {file}";
+          leave_broot = false;
+        }
+      ];
     };
   };
 
