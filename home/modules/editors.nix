@@ -47,12 +47,16 @@
       Type = "oneshot";
       RemainAfterExit = true;
       ExecStart = pkgs.writeShellScript "set-api-keys" ''
-        if [ -f /run/agenix/deepseek-api-key ]; then
-          ${pkgs.systemd}/bin/systemctl --user set-environment DEEPSEEK_API_KEY="$(cat /run/agenix/deepseek-api-key)"
+        if [ -f /home/ehsan/.config/secrets/deepseek-api-key ]; then
+          ${pkgs.systemd}/bin/systemctl --user set-environment DEEPSEEK_API_KEY="$(cat /home/ehsan/.config/secrets/deepseek-api-key)"
         fi
-        if [ -f /run/agenix/kimi-api-key ]; then
-          ${pkgs.systemd}/bin/systemctl --user set-environment KIMI_API_KEY="$(cat /run/agenix/kimi-api-key)"
+        if [ -f /home/ehsan/.config/secrets/kimi-api-key ]; then
+          ${pkgs.systemd}/bin/systemctl --user set-environment KIMI_API_KEY="$(cat /home/ehsan/.config/secrets/kimi-api-key)"
         fi
+        if [ -f /home/ehsan/.config/secrets/moonshot-api-key ]; then
+          ${pkgs.systemd}/bin/systemctl --user set-environment MOONSHOT_API_KEY="$(cat /home/ehsan/.config/secrets/moonshot-api-key)"
+        fi
+        ${pkgs.systemd}/bin/systemctl --user set-environment MOONSHOT_BASE_URL="https://api.moonshot.ai/v1"
       '';
     };
     Install = {

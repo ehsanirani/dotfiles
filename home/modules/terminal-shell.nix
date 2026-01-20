@@ -71,12 +71,16 @@ in
       end
 
       # Load API keys from agenix-decrypted secrets
-      if test -f /run/agenix/deepseek-api-key
-        set -gx DEEPSEEK_API_KEY (cat /run/agenix/deepseek-api-key)
+      if test -f /home/ehsan/.config/secrets/deepseek-api-key
+        set -gx DEEPSEEK_API_KEY (cat /home/ehsan/.config/secrets/deepseek-api-key)
       end
-      if test -f /run/agenix/kimi-api-key
-        set -gx KIMI_API_KEY (cat /run/agenix/kimi-api-key)
+      if test -f /home/ehsan/.config/secrets/kimi-api-key
+        set -gx KIMI_API_KEY (cat /home/ehsan/.config/secrets/kimi-api-key)
       end
+      if test -f /home/ehsan/.config/secrets/moonshot-api-key
+        set -gx MOONSHOT_API_KEY (cat /home/ehsan/.config/secrets/moonshot-api-key)
+      end
+      set -gx MOONSHOT_BASE_URL "https://api.moonshot.ai/v1"
     '';
     shellAliases = {
       ls = "${pkgs.eza}/bin/eza --icons --git";
