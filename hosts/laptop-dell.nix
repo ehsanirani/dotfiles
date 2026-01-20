@@ -92,6 +92,9 @@
     desktopManager.gnome.enable = true;
   };
 
+  # COSMIC Desktop (alternative option at login)
+  services.desktopManager.cosmic.enable = true;
+
   # Audio (PipeWire)
   services.pipewire = {
     enable = true;
