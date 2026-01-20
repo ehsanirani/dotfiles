@@ -38,6 +38,7 @@
   # API keys
   age.secrets.deepseek-api-key = {
     file = ../secrets/deepseek-api-key.age;
+    path = "/home/ehsan/.config/secrets/deepseek-api-key";
     owner = "ehsan";
     group = "users";
     mode = "0400";
@@ -45,6 +46,15 @@
 
   age.secrets.kimi-api-key = {
     file = ../secrets/kimi-api-key.age;
+    path = "/home/ehsan/.config/secrets/kimi-api-key";
+    owner = "ehsan";
+    group = "users";
+    mode = "0400";
+  };
+
+  age.secrets.moonshot-api-key = {
+    file = ../secrets/moonshot-api-key.age;
+    path = "/home/ehsan/.config/secrets/moonshot-api-key";
     owner = "ehsan";
     group = "users";
     mode = "0400";
