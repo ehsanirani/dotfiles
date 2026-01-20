@@ -6,6 +6,12 @@
     ".julia/config/startup.jl".source = ../config/julia/startup.jl;
   };
 
+  # Expose juliaup and cargo to GUI apps via session PATH
+  home.sessionPath = [
+    "$HOME/.juliaup/bin"
+    "$HOME/.cargo/bin"
+  ];
+
   # Add juliaup and rustup to PATH
   programs.zsh.initContent = ''
     [[ -d "$HOME/.juliaup/bin" ]] && PATH="$HOME/.juliaup/bin:$PATH"
