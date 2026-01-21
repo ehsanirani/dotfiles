@@ -93,7 +93,7 @@
   };
 
   # COSMIC Desktop (alternative option at login)
-  services.desktopManager.cosmic.enable = true;
+  services.desktopManager.cosmic.enable = false;
 
   # Audio (PipeWire)
   services.pipewire = {
