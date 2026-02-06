@@ -77,6 +77,10 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # KVM virtualization (required for Android emulator)
+  boot.kernelModules = [ "kvm-intel" ];
+  virtualisation.libvirtd.enable = true;
+
   # Networking
   networking.hostName = "laptop-dell";
   networking.networkmanager.enable = true;
@@ -116,7 +120,7 @@
   # Users
   users.users.ehsan = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "video" "audio" ];
+    extraGroups = [ "wheel" "networkmanager" "video" "audio" "kvm" "libvirtd" ];
     shell = pkgs.fish;
   };
 
