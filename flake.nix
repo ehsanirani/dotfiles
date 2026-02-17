@@ -28,6 +28,7 @@
       modules = [
         agenix.nixosModules.default
         ./hosts/laptop-dell.nix
+        ./modules/printing.nix
         # home-manager integration commented out - using standalone instead
         # home-manager.nixosModules.home-manager
         # {
