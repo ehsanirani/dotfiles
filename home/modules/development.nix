@@ -10,6 +10,7 @@
   home.sessionPath = [
     "$HOME/.juliaup/bin"
     "$HOME/.cargo/bin"
+    "$HOME/.bun/bin"
   ];
 
   # Add juliaup and rustup to PATH
@@ -110,6 +111,7 @@
     # Tools
     jq
     killall
+    unzip
     
     # Version control
     jujutsu
