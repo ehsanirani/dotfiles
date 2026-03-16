@@ -126,6 +126,14 @@ in
     };
   };
 
+  # Yazi - terminal file manager
+  programs.yazi = {
+    enable = true;
+    package = pkgs-unstable.yazi;
+    enableZshIntegration = true;
+    enableFishIntegration = true;
+  };
+
   # Broot - terminal file manager with tree view
   programs.broot = {
     enable = true;
