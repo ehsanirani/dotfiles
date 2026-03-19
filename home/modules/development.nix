@@ -115,6 +115,7 @@
     
     # Version control
     jujutsu
+    lazygit
     pkgs-unstable.prek
 
     # Claude Code
@@ -125,6 +126,7 @@
     mongodb-compass
 
     # Visualization
+    ovito
     paraview
     mermaid-cli
 
