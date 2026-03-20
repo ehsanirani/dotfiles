@@ -1,4 +1,6 @@
-using OhMyREPL
-using BenchmarkTools
-using Revise
+if isinteractive()
+    using OhMyREPL
+    using BenchmarkTools
+    using Revise
+end
 
