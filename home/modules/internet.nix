@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, pkgs-unstable, ... }:
 
 {
   home.packages = with pkgs; [
@@ -6,6 +6,7 @@
     google-chrome
     chromium
     telegram-desktop
+    pkgs-unstable.thunderbird
     zulip
     slack
   ];
