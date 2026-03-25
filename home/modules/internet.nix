@@ -7,6 +7,7 @@
     chromium
     telegram-desktop
     pkgs-unstable.thunderbird
+    zoom-us
     zulip
     slack
   ];
