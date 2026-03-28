@@ -109,6 +109,7 @@
     curl            # needed for juliaup and other downloads
 
     # Tools
+    just
     jq
     killall
     unzip
