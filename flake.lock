@@ -46,11 +46,11 @@
     "eemacs": {
       "flake": false,
       "locked": {
-        "lastModified": 1773832084,
-        "narHash": "sha256-wyy9zZtlZ1qfpts8jY8trczCAg/o/r3iUKwfk4m6zi8=",
+        "lastModified": 1775238305,
+        "narHash": "sha256-bB7NTgxOlszK0QNSRzFUFAnw53esBZ66xN9A41L/DU4=",
         "owner": "ehsanirani",
         "repo": "eemacs",
-        "rev": "aa45c02212c35b4311038faf55eb324d0f569478",
+        "rev": "682a18308bd258c38070727497fa58bd1b81c3de",
         "type": "github"
       },
       "original": {
