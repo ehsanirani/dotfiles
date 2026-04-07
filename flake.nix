@@ -25,6 +25,7 @@
     # System level, used at boot
     nixosConfigurations.laptop-dell = nixpkgs.lib.nixosSystem {
       inherit system;
+      specialArgs = { inherit pkgs-unstable; };
       modules = [
         agenix.nixosModules.default
         ./hosts/laptop-dell.nix

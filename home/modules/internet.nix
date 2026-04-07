@@ -10,6 +10,6 @@
     zoom-us
     zulip
     slack
-    openconnect
+    pkgs-unstable.openconnect
   ];
 }

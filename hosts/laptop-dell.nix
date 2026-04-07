@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, pkgs-unstable, ... }:
 
 {
   nixpkgs.config.allowUnfree = true;
@@ -150,7 +150,7 @@
   # System-wide packages
   environment.systemPackages = with pkgs; [
     git wget curl gnugrep gnutar gzip
-    networkmanager-openconnect
+    pkgs-unstable.networkmanager-openconnect
   ];
 
   # Enable native Wayland support for Electron/Chromium apps
