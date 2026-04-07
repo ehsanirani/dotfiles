@@ -10,5 +10,6 @@
     zoom-us
     zulip
     slack
+    openconnect
   ];
 }

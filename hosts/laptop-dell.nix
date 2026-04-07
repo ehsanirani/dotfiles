@@ -150,6 +150,7 @@
   # System-wide packages
   environment.systemPackages = with pkgs; [
     git wget curl gnugrep gnutar gzip
+    networkmanager-openconnect
   ];
 
   # Enable native Wayland support for Electron/Chromium apps
