@@ -12,5 +12,6 @@
     slack
     pkgs-unstable.openconnect
     claude-desktop-fhs
+    bubblewrap
   ];
 }
