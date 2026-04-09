@@ -13,5 +13,7 @@
     pkgs-unstable.openconnect
     claude-desktop-fhs
     bubblewrap
+    socat
+    virtiofsd
   ];
 }
