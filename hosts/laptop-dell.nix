@@ -121,6 +121,10 @@
     package = pkgs.mongodb-ce;
   };
   
+  # AppImage support
+  programs.appimage.enable = true;
+  programs.appimage.binfmt = true;
+
   # Shell
   programs.zsh.enable = true;
   programs.zsh.enableCompletion = false;
