@@ -11,5 +11,6 @@
     zulip
     slack
     pkgs-unstable.openconnect
+    claude-desktop
   ];
 }

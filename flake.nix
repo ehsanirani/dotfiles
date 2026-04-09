@@ -13,9 +13,10 @@
       url = "github:ehsanirani/eemacs";
       flake = false;
     };
+    claude-desktop.url = "github:aaddrick/claude-desktop-debian";
   };
   
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, agenix, eemacs, ... }: let
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, agenix, eemacs, claude-desktop, ... }: let
     system = "x86_64-linux";
     pkgs-unstable = import nixpkgs-unstable { 
       inherit system; 
@@ -44,9 +45,10 @@
 
     # User level, fast rebuilds without sudo
     homeConfigurations.ehsan = home-manager.lib.homeManagerConfiguration {
-      pkgs = import nixpkgs { 
-        inherit system; 
+      pkgs = import nixpkgs {
+        inherit system;
         config.allowUnfree = true;
+        overlays = [ claude-desktop.overlays.default ];
       };
       modules = [ ./home/ehsan.nix ];
       extraSpecialArgs = { inherit eemacs pkgs-unstable; };
