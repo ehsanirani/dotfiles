@@ -6,6 +6,7 @@
     ./modules/terminal-shell.nix
     ./modules/editors.nix
     ./modules/development.nix
+    ./modules/ssh.nix
     ./modules/git.nix
     ./modules/internet.nix
     ./modules/multimedia.nix

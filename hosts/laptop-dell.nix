@@ -36,6 +36,14 @@
   };
 
   # API keys
+  age.secrets.brics-ssh-key = {
+    file = ../secrets/brics-ssh-key.age;
+    path = "/home/ehsan/.ssh/brics_id";
+    owner = "ehsan";
+    group = "users";
+    mode  = "0600";
+  };
+
   age.secrets.deepseek-api-key = {
     file = ../secrets/deepseek-api-key.age;
     path = "/home/ehsan/.config/secrets/deepseek-api-key";

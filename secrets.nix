@@ -7,4 +7,5 @@ in
   "secrets/deepseek-api-key.age".publicKeys = [ user-key host-key ];
   "secrets/kimi-api-key.age".publicKeys = [ user-key host-key ];
   "secrets/moonshot-api-key.age".publicKeys = [ user-key host-key ];
+  "secrets/brics-ssh-key.age".publicKeys = [ user-key host-key ];
 }
