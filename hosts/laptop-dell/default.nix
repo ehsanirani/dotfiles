@@ -28,7 +28,7 @@
   # 3.  Decrypt private key into ~/.ssh at activation  <-- NEW BLOCK
   #######################################################################
   age.secrets.id_ed25519 = {
-    file = ../secrets/id_ed25519.age;          # encrypted file in repo
+    file = ../../secrets/id_ed25519.age;          # encrypted file in repo
     path = "/home/ehsan/.ssh/id_ed25519";      # where to place plain text
     owner = "ehsan";
     group = "users";
@@ -37,7 +37,7 @@
 
   # API keys
   age.secrets.brics-ssh-key = {
-    file = ../secrets/brics-ssh-key.age;
+    file = ../../secrets/brics-ssh-key.age;
     path = "/home/ehsan/.ssh/brics_id";
     owner = "ehsan";
     group = "users";
@@ -45,7 +45,7 @@
   };
 
   age.secrets.deepseek-api-key = {
-    file = ../secrets/deepseek-api-key.age;
+    file = ../../secrets/deepseek-api-key.age;
     path = "/home/ehsan/.config/secrets/deepseek-api-key";
     owner = "ehsan";
     group = "users";
@@ -53,7 +53,7 @@
   };
 
   age.secrets.kimi-api-key = {
-    file = ../secrets/kimi-api-key.age;
+    file = ../../secrets/kimi-api-key.age;
     path = "/home/ehsan/.config/secrets/kimi-api-key";
     owner = "ehsan";
     group = "users";
@@ -61,7 +61,7 @@
   };
 
   age.secrets.moonshot-api-key = {
-    file = ../secrets/moonshot-api-key.age;
+    file = ../../secrets/moonshot-api-key.age;
     path = "/home/ehsan/.config/secrets/moonshot-api-key";
     owner = "ehsan";
     group = "users";
@@ -70,7 +70,7 @@
 
   # Use host key instead of user key to avoid circular dependency during rebuild
   age.identityPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
-  #age.identity = builtins.readFile ../secrets/id_ed25519.age;   # encrypted, safe to store
+  #age.identity = builtins.readFile ../../secrets/id_ed25519.age;   # encrypted, safe to store
 
   #######################################################################
   # 4.  ssh-agent auto-started on graphical login

@@ -29,7 +29,7 @@
       specialArgs = { inherit pkgs-unstable; };
       modules = [
         agenix.nixosModules.default
-        ./hosts/laptop-dell.nix
+        ./hosts/laptop-dell
         ./modules/printing.nix
         ./modules/flatpak.nix
         # home-manager integration commented out - using standalone instead
