@@ -15,11 +15,11 @@
     };
     claude-desktop.url = "github:aaddrick/claude-desktop-debian";
   };
-  
+
   outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, agenix, eemacs, claude-desktop, ... }: let
     system = "x86_64-linux";
-    pkgs-unstable = import nixpkgs-unstable { 
-      inherit system; 
+    pkgs-unstable = import nixpkgs-unstable {
+      inherit system;
       config.allowUnfree = true;
     };
   in {
@@ -32,27 +32,44 @@
         ./hosts/laptop-dell
         ./modules/printing.nix
         ./modules/flatpak.nix
-        # home-manager integration commented out - using standalone instead
-        # home-manager.nixosModules.home-manager
-        # {
-        #   home-manager.useGlobalPkgs = true;
-        #   home-manager.useUserPackages = true;
-        #   home-manager.users.ehsan = import ./home/ehsan.nix;
-        #   home-manager.extraSpecialArgs = { inherit eemacs pkgs-unstable; };
-        # }
+      ];
+    };
+
+    nixosConfigurations.laptop-hzi = nixpkgs.lib.nixosSystem {
+      inherit system;
+      specialArgs = { inherit pkgs-unstable; };
+      modules = [
+        agenix.nixosModules.default
+        ./hosts/laptop-hzi
+        ./modules/printing.nix
+        ./modules/flatpak.nix
       ];
     };
 
     # User level, fast rebuilds without sudo
-    homeConfigurations.ehsan = home-manager.lib.homeManagerConfiguration {
-      pkgs = import nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-        overlays = [ claude-desktop.overlays.default ];
+    homeConfigurations = {
+      "ehsan@laptop-dell" = home-manager.lib.homeManagerConfiguration {
+        pkgs = import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+          overlays = [ claude-desktop.overlays.default ];
+        };
+        modules = [ ./home/ehsan.nix ];
+        extraSpecialArgs = { inherit eemacs pkgs-unstable; };
       };
-      modules = [ ./home/ehsan.nix ];
-      extraSpecialArgs = { inherit eemacs pkgs-unstable; };
+
+      "ehsan@laptop-hzi" = home-manager.lib.homeManagerConfiguration {
+        pkgs = import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+          overlays = [ claude-desktop.overlays.default ];
+        };
+        modules = [ ./home/ehsan.nix ];
+        extraSpecialArgs = { inherit eemacs pkgs-unstable; };
+      };
+
+      # Alias for backwards compatibility with `home-manager switch --flake .#ehsan`
+      ehsan = self.homeConfigurations."ehsan@laptop-dell";
     };
   };
 }
-
