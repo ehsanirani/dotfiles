@@ -74,8 +74,8 @@
 
   #######################################################################
   # 4.  ssh-agent auto-started on graphical login
+  #      (GNOME's gcr-ssh-agent handles this since 25.11)
   #######################################################################
-  programs.ssh.startAgent = true;
 
   # … rest of your existing config …
   
