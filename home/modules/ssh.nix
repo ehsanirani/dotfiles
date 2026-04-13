@@ -3,6 +3,7 @@
 {
   programs.ssh = {
     enable = true;
+    enableDefaultConfig = false;
     matchBlocks = {
       "brics" = {
         hostname = "brws046.br-simm.nat.tu-bs.de";

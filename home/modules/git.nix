@@ -3,9 +3,11 @@
 {
   programs.git = {
     enable = true;
-    userName  = "Ehsan Irani";
-    userEmail = "ehsan.irani@protonmail.com";
-    extraConfig = {
+    settings = {
+      user = {
+        name = "Ehsan Irani";
+        email = "ehsan.irani@protonmail.com";
+      };
       init.defaultBranch = "main";
       push.autoSetupRemote = true;
     };
