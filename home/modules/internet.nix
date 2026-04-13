@@ -2,39 +2,69 @@
 
 let
   # Patch claude-desktop's cowork bwrap sandbox to work on NixOS.
-  # The BwrapBackend in cowork-vm-service.js creates a minimal sandbox with
-  # --tmpfs / and --ro-bind /usr /usr. On NixOS (inside the FHS wrapper),
-  # /usr/lib64/ contains symlinks into /nix/store/, but /nix is not mounted
-  # in the inner sandbox. Additionally, --tmpfs /run wipes /run/current-system
-  # which nix-ld needs to find the real dynamic linker.
-  # Fix: bind-mount /nix and /run/current-system read-only into the sandbox.
+  #
+  # Problems on NixOS:
+  #   1. The BwrapBackend creates a minimal sandbox with --tmpfs / and
+  #      --ro-bind /usr. On NixOS (inside the FHS wrapper), /usr/lib64/
+  #      contains symlinks into /nix/store/, but /nix is not mounted in
+  #      the inner sandbox. Same for /run/current-system which nix-ld needs.
+  #   2. resolveSubpath() turns relative paths like "nix/store/..." into
+  #      "$HOME/nix/store/..." instead of "/nix/store/...", breaking mounts
+  #      for paths originating from the Nix store.
+  #   3. cowork-plugin-shim.sh has Nix store 0555 permissions, causing
+  #      EACCES when the app tries to overwrite a previously-copied file.
   claude-desktop-patched = pkgs.claude-desktop.overrideAttrs (old: {
     postInstall = (old.postInstall or "") + ''
-      # Patch cowork-vm-service.js to bind /nix in the bwrap sandbox
-      substituteInPlace $out/lib/claude-desktop/electron/resources/app.asar.unpacked/cowork-vm-service.js \
-        --replace-warn \
-          "'--tmpfs', '/'," \
-          "'--tmpfs', '/',
-            // NixOS fix: /usr/lib64 contains symlinks into /nix/store
-            ...(require('fs').existsSync('/nix/store') ? ['--ro-bind', '/nix', '/nix'] : []),"
+      COWORK_JS=$out/lib/claude-desktop/electron/resources/app.asar.unpacked/cowork-vm-service.js
 
-      # Bind /run/current-system so nix-ld can find the real dynamic linker.
-      # This must come after --tmpfs /run to overlay onto the tmpfs.
-      substituteInPlace $out/lib/claude-desktop/electron/resources/app.asar.unpacked/cowork-vm-service.js \
+      # --- Fix: Force host backend to bypass bwrap sandbox entirely ---
+      # The nested bwrap sandbox (inside the FHS wrapper) has multiple issues
+      # on NixOS: /nix not mounted, /tmp and /run wiped (hiding MITM proxy
+      # certs and sockets), nix store paths rejected by home-dir check.
+      # The host backend runs claude-code-vm directly without sandboxing,
+      # which is fine since the FHS wrapper already provides isolation.
+      substituteInPlace "$COWORK_JS" \
         --replace-warn \
-          "'--tmpfs', '/run'," \
-          "'--tmpfs', '/run',
-            // NixOS fix: nix-ld needs /run/current-system/sw/share/nix-ld/lib/ld.so
-            ...(require('fs').existsSync('/run/current-system') ? ['--ro-bind', '/run/current-system', '/run/current-system'] : []),"
+          "const BACKEND_OVERRIDE = process.env.COWORK_VM_BACKEND || null;" \
+          "const BACKEND_OVERRIDE = process.env.COWORK_VM_BACKEND || 'host';"
 
-      # Also fix shim.sh permissions (Nix store files are 0555, causing
-      # EACCES when Claude Desktop tries to overwrite on retries)
-      chmod 755 $out/lib/claude-desktop/electron/resources/cowork-plugin-shim.sh
+      # --- Fix: resolveSubpath must prefer absolute paths that exist ---
+      # Without this, "nix/store/..." resolves to "$HOME/nix/store/..." which
+      # breaks mount-map entries for Nix store paths (e.g. app.asar).
+      substituteInPlace "$COWORK_JS" \
+        --replace-warn \
+          'return path.resolve(path.join(os.homedir(), subpath));' \
+          '{ const abs = path.resolve(path.join("/", subpath)); if (require("fs").existsSync(abs)) return abs; return path.resolve(path.join(os.homedir(), subpath)); }'
+
+      # --- Fix: buildMountMap rejects paths outside $HOME ---
+      # On NixOS, app.asar lives in /nix/store, which gets rejected by the
+      # home-directory security check. Allow /nix/store paths through.
+      substituteInPlace "$COWORK_JS" \
+        --replace-warn \
+          "!resolved.startsWith(homeDir + path.sep))" \
+          "!resolved.startsWith(homeDir + path.sep) && !resolved.startsWith('/nix/store/'))"
+
     '';
   });
 
-  claude-desktop-wrapped = pkgs.claude-desktop-fhs.override {
+  claude-desktop-fhs-wrapped = pkgs.claude-desktop-fhs.override {
     claude-desktop = claude-desktop-patched;
+  };
+
+  # Wrap claude-desktop to fix stale read-only shim.sh copies from Nix store.
+  # The main app.asar (which we can't easily patch) also copies shim.sh and
+  # hits EACCES on previously-copied 0555 files. Clean them up before launch.
+  # We symlinkJoin the FHS wrapper with an overridden bin/ so we keep .desktop
+  # files and icons from the original package.
+  claude-desktop-wrapped = pkgs.symlinkJoin {
+    name = "claude-desktop-wrapped";
+    paths = [ claude-desktop-fhs-wrapped ];
+    nativeBuildInputs = [ pkgs.makeWrapper ];
+    postBuild = ''
+      rm "$out/bin/claude-desktop"
+      makeWrapper "${claude-desktop-fhs-wrapped}/bin/claude-desktop" "$out/bin/claude-desktop" \
+        --run 'find "$HOME/.config/Claude/local-agent-mode-sessions" -name "shim.sh" ! -writable -exec chmod 644 {} \; 2>/dev/null || true'
+    '';
   };
 in
 {
