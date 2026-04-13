@@ -30,9 +30,11 @@
   home.packages = with pkgs; [
     cmake          # needed for emacs vterm compilation
     gcc            # C compiler for vterm-module
+    glib           # glib headers for vterm-module build
     gnumake        # make for building vterm
     libtool        # build tools for vterm
     libvterm       # vterm library
+    pkg-config     # needed to locate glib during vterm build
   ];
 
   # Set environment variables from agenix secrets for systemd user session
