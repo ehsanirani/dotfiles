@@ -59,6 +59,11 @@
       if [ -f "$HOME/.juliaup/bin/juliaup" ]; then
         $DRY_RUN_CMD $HOME/.juliaup/bin/juliaup default release
       fi
+
+      # Install startup packages
+      if [ -f "$HOME/.juliaup/bin/julia" ]; then
+        $DRY_RUN_CMD $HOME/.juliaup/bin/julia -e 'using Pkg; Pkg.add(["OhMyREPL", "BenchmarkTools", "Revise"])'
+      fi
     fi
   '';
 
