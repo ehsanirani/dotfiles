@@ -1,6 +1,13 @@
 { config, pkgs, lib, pkgs-unstable, ... }:
 
 {
+  # Qt integration for GNOME (needed by OVITO, ParaView, etc.)
+  qt = {
+    enable = true;
+    platformTheme.name = "adwaita";
+    style.name = "adwaita";
+  };
+
   # Julia config file
   home.file = {
     ".julia/config/startup.jl".source = ../config/julia/startup.jl;
@@ -127,7 +134,15 @@
     mongodb-compass
 
     # Visualization
-    ovito
+    # Wrap OVITO with GTK3 so file/color chooser dialogs work under GNOME's Qt theme
+    (ovito.overrideAttrs (old: {
+      buildInputs = (old.buildInputs or []) ++ [ gtk3 ];
+      nativeBuildInputs = (old.nativeBuildInputs or []) ++ [ wrapGAppsHook3 ];
+      dontWrapGApps = true;
+      preFixup = (old.preFixup or "") + ''
+        qtWrapperArgs+=("''${gappsWrapperArgs[@]}")
+      '';
+    }))
     paraview
     mermaid-cli
 
