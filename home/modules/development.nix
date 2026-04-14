@@ -111,6 +111,7 @@
     bun
 
     # Build essentials
+    gcc             # C linker needed by cargo/rustc
     pkg-config      # needed for cargo to find libraries
     openssl         # commonly needed by Rust crates
     curl            # needed for juliaup and other downloads
