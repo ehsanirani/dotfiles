@@ -92,6 +92,9 @@
   # Networking
   networking.hostName = "laptop-dell";
   networking.networkmanager.enable = true;
+  networking.networkmanager.plugins = with pkgs; [
+    networkmanager-openconnect
+  ];
 
   # Locale & time
   time.timeZone = "Europe/Berlin"; # change if needed
@@ -162,7 +165,7 @@
   # System-wide packages
   environment.systemPackages = with pkgs; [
     git wget curl gnugrep gnutar gzip
-    pkgs-unstable.networkmanager-openconnect
+    networkmanager-openconnect
   ];
 
   # Enable native Wayland support for Electron/Chromium apps
