@@ -128,6 +128,7 @@
     unzip
     
     # Version control
+    gitui
     jujutsu
     lazygit
     pkgs-unstable.prek
