@@ -32,6 +32,7 @@
         ./hosts/laptop-dell
         ./modules/printing.nix
         ./modules/flatpak.nix
+        ./modules/usb.nix
       ];
     };
 
@@ -43,6 +44,7 @@
         ./hosts/laptop-hzi
         ./modules/printing.nix
         ./modules/flatpak.nix
+        ./modules/usb.nix
       ];
     };
 
